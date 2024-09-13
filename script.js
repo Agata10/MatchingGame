@@ -58,21 +58,30 @@ const playGame = (imgHolders) => {
   imgHolders.forEach((img) => {
     img.addEventListener('click', (e) => {
       clickCount++;
+      e.target.parentNode.style.transition = 'transform 0.4s ease-out';
+      e.target.parentNode.style.transform = 'rotateY(180deg)';
+      e.target.style.transition = 'opacity 0.6s ease-out';
       e.target.style.opacity = 1;
 
       // console.log('id', e.target.id);
       // console.log('clickCount', clickCount);
       //if two cards open
       if (clickCount === 2) {
-        //check their ids
+        //check cards ids
         if (e.target.id !== prevId) {
           //if not equal add opacity and remove counter
+          const prevImg = document.querySelector(classNameOfImg);
+          prevImg.style.transition = 'opacity 0.6s ease-out';
+
           setTimeout(() => {
+            e.target.parentNode.style.transform = 'rotateY(0deg)'; // Reset transform
+            prevImg.parentNode.style.transform = 'rotateY(0deg)';
             e.target.style.opacity = 0;
-            const prevImg = document.querySelector(classNameOfImg);
             prevImg.style.opacity = 0;
             classNameOfImg = null;
-          }, 500);
+            count = 0;
+          }, 600);
+
           //if ids match add match counter and check for game over
         } else {
           match++;
