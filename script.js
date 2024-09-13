@@ -19,20 +19,20 @@ const saveImagesToLocalStorage = (data, mode) => {
   switch (mode) {
     case 1:
       for (let i = 0; i < 3; i++) {
-        arrayOfImages.push({ img: data[i].image });
-        arrayOfImages.push({ img: data[i].image });
+        arrayOfImages.push({ img: data[i].image, number: i });
+        arrayOfImages.push({ img: data[i].image, number: i });
       }
       break;
     case 2:
       for (let i = 0; i < 4; i++) {
-        arrayOfImages.push({ img: data[i].image });
-        arrayOfImages.push({ img: data[i].image });
+        arrayOfImages.push({ img: data[i].image, number: i });
+        arrayOfImages.push({ img: data[i].image, number: i });
       }
       break;
     default:
       for (let i = 0; i < 6; i++) {
-        arrayOfImages.push({ img: data[i].image });
-        arrayOfImages.push({ img: data[i].image });
+        arrayOfImages.push({ img: data[i].image, number: i });
+        arrayOfImages.push({ img: data[i].image, number: i });
       }
 
       break;
@@ -41,11 +41,19 @@ const saveImagesToLocalStorage = (data, mode) => {
 };
 
 const assignSrcToImgHoldersRandomly = (arrOfIndexes, imgHolders) => {
-  const imgHoldersArray = Array.from(imgHolders);
   arrOfIndexes.forEach((randomIndex, indexOfArr) => {
     console.log(indexOfArr);
     console.log(randomIndex);
-    imgHoldersArray[indexOfArr].setAttribute('src', images[randomIndex].img);
+    imgHolders[indexOfArr].setAttribute('src', images[randomIndex].img);
+  });
+};
+
+const playGame = (imgHolders) => {
+  imgHolders.forEach((img) => {
+    img.addEventListener('click', (e) => {
+      e.target.style.opacity = 1;
+      console.log(e.target.id);
+    });
   });
 };
 
@@ -58,17 +66,24 @@ const chooseMode = async (mode) => {
   }
   const cardsWrapper = document.getElementById('wrapper');
   cardsWrapper.innerHTML = '';
-  console.log('yes');
-
   const arrOfIndexes = [];
   let randomIndex = null;
+
+  if (mode === 1) {
+    cardsWrapper.style.gridTemplateColumns = 'repeat(3,1fr)';
+  } else if (mode === 3) {
+  }
 
   images.forEach((image, index) => {
     console.log(image, index);
     const div = document.createElement('div');
     const imgHolder = document.createElement('img');
     imgHolder.classList.add('holder');
+    imgHolder.setAttribute('id', `${image.number}`);
     div.classList.add(`${index}`);
+    div.classList.add('div-holder');
+    div.style.backgroundColor = 'black';
+    imgHolder.style.opacity = 0;
     div.appendChild(imgHolder);
     cardsWrapper.appendChild(div);
 
@@ -81,7 +96,9 @@ const chooseMode = async (mode) => {
 
   // assing photos with random indexes to the img holders
   const imgHolders = document.getElementsByClassName('holder');
-  assignSrcToImgHoldersRandomly(arrOfIndexes, imgHolders);
+  const imgHoldersArray = Array.from(imgHolders);
+  assignSrcToImgHoldersRandomly(arrOfIndexes, imgHoldersArray);
+  playGame(imgHoldersArray);
 };
 
 const easyBtn = document.getElementById('easy-mode');
