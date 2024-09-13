@@ -20,21 +20,33 @@ const saveImagesToLocalStorage = (data, mode) => {
     case 1:
       for (let i = 0; i < 3; i++) {
         arrayOfImages.push({ img: data[i].image });
+        arrayOfImages.push({ img: data[i].image });
       }
       break;
     case 2:
       for (let i = 0; i < 4; i++) {
+        arrayOfImages.push({ img: data[i].image });
         arrayOfImages.push({ img: data[i].image });
       }
       break;
     default:
       for (let i = 0; i < 6; i++) {
         arrayOfImages.push({ img: data[i].image });
+        arrayOfImages.push({ img: data[i].image });
       }
 
       break;
   }
   localStorage.setItem('images', JSON.stringify(arrayOfImages));
+};
+
+const assignSrcToImgHoldersRandomly = (arrOfIndexes, imgHolders) => {
+  const imgHoldersArray = Array.from(imgHolders);
+  arrOfIndexes.forEach((randomIndex, indexOfArr) => {
+    console.log(indexOfArr);
+    console.log(randomIndex);
+    imgHoldersArray[indexOfArr].setAttribute('src', images[randomIndex].img);
+  });
 };
 
 const chooseMode = async (mode) => {
@@ -44,20 +56,32 @@ const chooseMode = async (mode) => {
     images = JSON.parse(localStorage.getItem('images'));
     console.log('images fetched from local storage');
   }
-  window.location.href = './pages/game.html';
   const cardsWrapper = document.getElementById('wrapper');
   cardsWrapper.innerHTML = '';
   console.log('yes');
+
+  const arrOfIndexes = [];
+  let randomIndex = null;
 
   images.forEach((image, index) => {
     console.log(image, index);
     const div = document.createElement('div');
     const imgHolder = document.createElement('img');
-    imgHolder.setAttribute('src', image.img);
+    imgHolder.classList.add('holder');
     div.classList.add(`${index}`);
     div.appendChild(imgHolder);
     cardsWrapper.appendChild(div);
+
+    // generate random indexes for images
+    do {
+      randomIndex = Math.floor(Math.random() * images.length);
+    } while (arrOfIndexes.includes(randomIndex));
+    arrOfIndexes.push(randomIndex);
   });
+
+  // assing photos with random indexes to the img holders
+  const imgHolders = document.getElementsByClassName('holder');
+  assignSrcToImgHoldersRandomly(arrOfIndexes, imgHolders);
 };
 
 const easyBtn = document.getElementById('easy-mode');
