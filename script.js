@@ -42,17 +42,52 @@ const saveImagesToLocalStorage = (data, mode) => {
 
 const assignSrcToImgHoldersRandomly = (arrOfIndexes, imgHolders) => {
   arrOfIndexes.forEach((randomIndex, indexOfArr) => {
-    console.log(indexOfArr);
-    console.log(randomIndex);
+    // console.log(indexOfArr);
+    // console.log(randomIndex);
     imgHolders[indexOfArr].setAttribute('src', images[randomIndex].img);
+    imgHolders[indexOfArr].setAttribute('id', `${images[randomIndex].number}`);
   });
 };
 
 const playGame = (imgHolders) => {
+  let clickCount = 0;
+  let prevId = null;
+  let match = null;
+  let classNameOfImg;
+
   imgHolders.forEach((img) => {
     img.addEventListener('click', (e) => {
+      clickCount++;
       e.target.style.opacity = 1;
-      console.log(e.target.id);
+
+      // console.log('id', e.target.id);
+      // console.log('clickCount', clickCount);
+      //if two cards open
+      if (clickCount === 2) {
+        //check their ids
+        if (e.target.id !== prevId) {
+          //if not equal add opacity and remove counter
+          setTimeout(() => {
+            e.target.style.opacity = 0;
+            const prevImg = document.querySelector(classNameOfImg);
+            prevImg.style.opacity = 0;
+            classNameOfImg = null;
+          }, 500);
+          //if ids match add match counter and check for game over
+        } else {
+          match++;
+          //check if game over
+          if (match * 2 === images.length) {
+            alert('Won');
+          }
+        }
+        //clear previous image id and counter
+        clickCount = 0;
+        prevId = null;
+      } else {
+        prevId = e.target.id;
+        classNameOfImg = '.' + e.target.classList.value.replaceAll(' ', '.');
+      }
     });
   });
 };
@@ -75,11 +110,11 @@ const chooseMode = async (mode) => {
   }
 
   images.forEach((image, index) => {
-    console.log(image, index);
+    // console.log(image, index);
     const div = document.createElement('div');
     const imgHolder = document.createElement('img');
     imgHolder.classList.add('holder');
-    imgHolder.setAttribute('id', `${image.number}`);
+    imgHolder.classList.add(`number-img-${index}`);
     div.classList.add(`${index}`);
     div.classList.add('div-holder');
     div.style.backgroundColor = 'black';
