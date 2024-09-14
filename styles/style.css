@@ -2,6 +2,10 @@
 
 :root {
     --red: #641e1e;
+    --yellow: #c39a1c;
+    --brown: #3d2f22;
+    --green: #2a623d;
+    --light-brown: #726255;
 }
 
 * {
@@ -24,30 +28,15 @@ body {
     background-repeat: no-repeat;
     width: 100%;
     height: 100vh;
+    position: relative;
 }
 
 #inside-div {
     width: 100%;
     height: 100vh;
-}
-
-h1,
-h3,
-h4 {
-    font-family: 'Harry P', sans-serif;
-    color: var(--red)
-}
-
-h1 {
-    font-size: 6rem;
-}
-
-h3 {
-    font-size: 4rem;
-}
-
-h4 {
-    font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .main-title-div {
@@ -56,7 +45,95 @@ h4 {
     flex-direction: column;
     align-items: center;
     justify-items: center;
+    margin-top: 20px;
 }
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Harry P', sans-serif;
+
+}
+
+h1 {
+    font-size: 6rem;
+    color: var(--red)
+}
+
+h3 {
+    font-size: 4rem;
+    color: var(--yellow)
+}
+
+h4 {
+    font-size: 3rem;
+    color: var(--green);
+}
+
+/* audio */
+
+#play {
+    position: absolute;
+    right: 40px;
+    top: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#audio-img {
+    width: 36px;
+    height: 36px;
+}
+
+/* mode btns */
+
+.mode-header {
+    color: var(--light-brown);
+    margin-top: 100px;
+    padding-bottom: 20px;
+}
+
+button {
+    font-family: 'Harry P', sans-serif;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.6s ease-in;
+}
+
+
+button:hover {
+    transform: scale(1.2);
+}
+
+.btns-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+#easy-mode,
+#medium-mode,
+#hard-mode {
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: black;
+    border: 1px solid black;
+    box-shadow: 3px 2px 8px 1px var(--brown);
+}
+
+#easy-mode {
+    color: var(--green);
+}
+
+#medium-mode {
+    color: var(--yellow);
+}
+
+#hard-mode {
+    color: var(--red);
+}
+
 
 #wrapper {
     display: none;

@@ -13,20 +13,22 @@
           <h1>Welcome Wizard!</h1>
           <h3>This is a Harry Potter</h3>
           <h4>Matching Game!</h2>
-          <div>
-            <audio
-              id="gameSong"
-              src="./assets/harry_potter_hedwigs.mp3"
-              loop
-              muted
-            ></audio>
-            <button id="play">Play</button>
-          </div>
+            <div>
+              <audio
+                id="gameSong"
+                src="./assets/harry_potter_hedwigs.mp3"
+                loop
+                muted
+              ></audio>
+              <button id="play"><img id='audio-img' src="./assets/volume-mute-fill.svg" alt="play-pause"></button>
+            </div>
         </div>
-        <h2>Choose mode</h2>
-        <button id="easy-mode">Easy Mode</button>
-        <button id="medium-mode">Mediun Mode</button>
-        <button id="hard-mode">Hard Mode</button>
+        <h4 class="mode-header">Choose mode</h2>
+          <div class="btns-wrapper">
+        <button id="easy-mode">Easy</button>
+        <button id="medium-mode">Medium</button>
+        <button id="hard-mode">Hard</button>
+      </div>
       </div>
     </div>
     <div id="wrapper"></div>

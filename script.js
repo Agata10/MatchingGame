@@ -146,6 +146,7 @@ const chooseMode = async (mode) => {
 };
 
 const songAudio = document.getElementById('gameSong');
+const audioImg = document.getElementById('audio-img');
 const easyBtn = document.getElementById('easy-mode');
 const mediumBtn = document.getElementById('medium-mode');
 const hardBtn = document.getElementById('hard-mode');
@@ -157,11 +158,11 @@ hardBtn.addEventListener('click', () => chooseMode(3));
 audioBtn.addEventListener('click', () => {
   if (songAudio.paused) {
     songAudio.muted = false;
+    audioImg.setAttribute('src', './assets/volume-down-fill.svg');
     songAudio.play();
-    audioBtn.textContent = 'Play';
   } else {
     songAudio.pause();
-    audioBtn.textContent = 'Pause';
+    audioImg.setAttribute('src', './assets/volume-mute-fill.svg');
   }
 });
 songAudio.volume = 0.1;
