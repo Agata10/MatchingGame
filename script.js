@@ -102,17 +102,22 @@ const playGame = (imgHolders) => {
 };
 
 const chooseMode = async (mode) => {
+  const welcomeDiv = document.getElementById('welcome-div');
+  const gameWrapper = document.getElementById('game-wrapper');
+  welcomeDiv.style.display = 'none';
+  gameWrapper.style.display = 'flex';
+  const cardsWrapper = document.getElementById('wrapper');
+  cardsWrapper.innerHTML = '';
+
   if (!images) {
     data = await fetchData();
     saveImagesToLocalStorage(data, mode);
     images = JSON.parse(localStorage.getItem('images'));
     console.log('images fetched from local storage');
   }
-  const cardsWrapper = document.getElementById('wrapper');
-  cardsWrapper.innerHTML = '';
+
   const arrOfIndexes = [];
   let randomIndex = null;
-
   if (mode === 1) {
     cardsWrapper.style.gridTemplateColumns = 'repeat(3,1fr)';
   } else if (mode === 3) {
