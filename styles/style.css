@@ -18,7 +18,7 @@ body {
 /*WELCOME PAGE*/
 #welcome-div {
     display: flex;
-    background-image: url('/back.webp');
+    background-image: url('/assets/back.webp');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
