@@ -145,10 +145,23 @@ const chooseMode = async (mode) => {
   playGame(imgHoldersArray);
 };
 
+const songAudio = document.getElementById('gameSong');
 const easyBtn = document.getElementById('easy-mode');
 const mediumBtn = document.getElementById('medium-mode');
 const hardBtn = document.getElementById('hard-mode');
+const audioBtn = document.getElementById('play');
 
 easyBtn.addEventListener('click', () => chooseMode(1));
 mediumBtn.addEventListener('click', () => chooseMode(2));
 hardBtn.addEventListener('click', () => chooseMode(3));
+audioBtn.addEventListener('click', () => {
+  if (songAudio.paused) {
+    songAudio.muted = false;
+    songAudio.play();
+    audioBtn.textContent = 'Play';
+  } else {
+    songAudio.pause();
+    audioBtn.textContent = 'Pause';
+  }
+});
+songAudio.volume = 0.1;

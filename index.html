@@ -7,11 +7,26 @@
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
-    <h1>Welcome!</h1>
-    <h2>Choose mode</h2>
-    <button id="easy-mode">Easy Mode</button>
-    <button id="medium-mode">Mediun Mode</button>
-    <button id="hard-mode">Hard Mode</button>
+    <div id="welcome-div">
+      <div>
+        <div>
+          <h1>Welcome!</h1>
+          <div>
+            <audio
+              id="gameSong"
+              src="/harry_potter_hedwigs.mp3"
+              loop
+              muted
+            ></audio>
+            <button id="play">Play</button>
+          </div>
+        </div>
+        <h2>Choose mode</h2>
+        <button id="easy-mode">Easy Mode</button>
+        <button id="medium-mode">Mediun Mode</button>
+        <button id="hard-mode">Hard Mode</button>
+      </div>
+    </div>
     <div id="wrapper"></div>
   </body>
   <script src="script.js"></script>
