@@ -7,7 +7,7 @@ Matching game in Harry Potter theme! Three levels to choose from with music from
 - [About](#about)
 - [Technologies](#technologies)
 - [Future app possibilities](#future-app-possibilities)
-<!-- - [Screenshots](#screenshots) -->
+- [Screenshots](#screenshots)
 - [Site link](#site-link)
 
 ## About
@@ -38,10 +38,12 @@ There are possibilities to expand app for more features like:
 1. Using ES6 modules to create sepaerate html webistes for welcome page and game mode.
 2. Refactoring localStorage to use database.
 
-<!-- ## Screenshots
+## Screenshots
 
 1. Home page:
    <br>
-   <img src="./images/screen.png" width="800" height="500"> -->
+   <img src="./assets/screeen.png" width="800" height="500">
 
 ## Site link
+
+https://matching-game-harrypotter.netlify.app/
