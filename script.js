@@ -1,6 +1,3 @@
-let images = JSON.parse(localStorage.getItem('images'));
-let data;
-
 const fetchData = async () => {
   try {
     const response = await fetch(
@@ -40,7 +37,7 @@ const saveImagesToLocalStorage = (data, mode) => {
   localStorage.setItem('images', JSON.stringify(arrayOfImages));
 };
 
-const assignSrcToImgHoldersRandomly = (arrOfIndexes, imgHolders) => {
+const assignSrcToImgHoldersRandomly = (arrOfIndexes, imgHolders, images) => {
   arrOfIndexes.forEach((randomIndex, indexOfArr) => {
     // console.log(indexOfArr);
     // console.log(randomIndex);
@@ -54,6 +51,7 @@ const playGame = (imgHolders) => {
   let prevId = null;
   let match = null;
   let classNameOfImg;
+  let images = JSON.parse(localStorage.getItem('images'));
 
   imgHolders.forEach((img) => {
     img.addEventListener('click', (e) => {
@@ -87,7 +85,12 @@ const playGame = (imgHolders) => {
           match++;
           //check if game over
           if (match * 2 === images.length) {
-            alert('Won');
+            const dialog = document.getElementById('win-dialog');
+            setTimeout(() => {
+              dialog.showModal();
+              document.body.style.transition = 'opacity 0.3s ease-out';
+              document.body.style.opacity = 0.2;
+            }, 700);
           }
         }
         //clear previous image id and counter
@@ -106,11 +109,13 @@ const chooseMode = async (mode) => {
   const gameWrapper = document.getElementById('game-wrapper');
   welcomeDiv.style.display = 'none';
   gameWrapper.style.display = 'flex';
+  gameWrapper.style.display.opacity = 1;
   const cardsWrapper = document.getElementById('wrapper');
   cardsWrapper.innerHTML = '';
+  let images = JSON.parse(localStorage.getItem('images'));
 
   if (!images) {
-    data = await fetchData();
+    let data = await fetchData();
     saveImagesToLocalStorage(data, mode);
     images = JSON.parse(localStorage.getItem('images'));
     console.log('images fetched from local storage');
@@ -146,8 +151,20 @@ const chooseMode = async (mode) => {
   // assing photos with random indexes to the img holders
   const imgHolders = document.getElementsByClassName('holder');
   const imgHoldersArray = Array.from(imgHolders);
-  assignSrcToImgHoldersRandomly(arrOfIndexes, imgHoldersArray);
+  assignSrcToImgHoldersRandomly(arrOfIndexes, imgHoldersArray, images);
   playGame(imgHoldersArray);
+};
+
+const clearGame = () => {
+  localStorage.removeItem('images');
+  const welcomeDiv = document.getElementById('welcome-div');
+  const gameWrapper = document.getElementById('game-wrapper');
+  welcomeDiv.style.display = 'flex';
+  gameWrapper.style.display = 'none';
+  const cardsWrapper = document.getElementById('wrapper');
+  cardsWrapper.innerHTML = '';
+  document.getElementById('win-dialog').close();
+  document.body.opacity = 1;
 };
 
 const songAudio = document.getElementById('gameSong');
@@ -156,6 +173,7 @@ const easyBtn = document.getElementById('easy-mode');
 const mediumBtn = document.getElementById('medium-mode');
 const hardBtn = document.getElementById('hard-mode');
 const audioBtn = document.getElementById('play');
+const goBack = document.getElementById('back-btn');
 
 easyBtn.addEventListener('click', () => chooseMode(1));
 mediumBtn.addEventListener('click', () => chooseMode(2));
@@ -170,4 +188,6 @@ audioBtn.addEventListener('click', () => {
     audioImg.setAttribute('src', './assets/volume-mute-fill.svg');
   }
 });
+
+goBack.addEventListener('click', clearGame);
 songAudio.volume = 0.1;

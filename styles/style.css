@@ -137,6 +137,10 @@ button:hover {
     display: none;
 }
 
+#game-wrapper {
+    display: none;
+}
+
 #wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -150,4 +154,35 @@ button:hover {
 .holder {
     max-width: 250px;
     max-height: 300px;
+}
+
+/*dialog*/
+
+dialog {
+    position: relative;
+    top: 25%;
+    margin: 0 auto;
+    border: none;
+    background-color: var(--yellow);
+    border-radius: 12px;
+    box-shadow: 2px 7px 5px 8px var(--light-brown);
+}
+
+dialog>div {
+
+    opacity: 1 !important;
+    display: flex;
+    width: 350px;
+    height: 180px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#back-btn {
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: var(--red);
+    border: 1px solid black;
+    box-shadow: 3px 2px 8px 1px var(--brown);
 }
