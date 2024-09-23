@@ -16,7 +16,7 @@
           <h4>Matching Game!</h2>
             <div>
               <audio
-                id="gameSong"
+                class="gameSong"
                 src="./assets/harry_potter_hedwigs.mp3"
                 loop
                 muted
@@ -35,6 +35,15 @@
     <div id="game-wrapper">
     <div id="wrapper"></div>
     <button class="go-back">Go back</button>
+    <div>
+      <audio
+        class="gameSong"
+        src="./assets/harry_potter_hedwigs.mp3"
+        loop
+        muted
+      ></audio>
+      <button class="play"><img id='audio-img2' src="./assets/volume-mute-fill.svg" alt="play-pause"></button>
+    </div>
   </div>
   <dialog id="win-dialog">
     <div>

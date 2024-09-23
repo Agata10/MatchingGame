@@ -104,14 +104,29 @@ const playGame = (imgHolders) => {
   });
 };
 
-const chooseMode = async (mode) => {
+const styleGameMode = () => {
   const welcomeDiv = document.getElementById('welcome-div');
   const gameWrapper = document.getElementById('game-wrapper');
+  const cardsWrapper = document.getElementById('wrapper');
+  const audioBtnGameMode = document.querySelector('.play');
+  const audioImg = document.getElementById('audio-img2');
+  const audioBtn = document.querySelector('.play');
+
   welcomeDiv.style.display = 'none';
   gameWrapper.style.display = 'flex';
   gameWrapper.style.display.opacity = 1;
-  const cardsWrapper = document.getElementById('wrapper');
   cardsWrapper.innerHTML = '';
+
+  audioBtnGameMode.addEventListener('click', () => handleSong(audioImg));
+
+  audioBtn.style.top = '65px';
+  audioBtn.style.right = '45px';
+};
+
+const chooseMode = async (mode) => {
+  styleGameMode();
+
+  const cardsWrapper = document.getElementById('wrapper');
   let images = JSON.parse(localStorage.getItem('images'));
 
   if (!images) {
@@ -173,19 +188,7 @@ const clearGame = () => {
   document.body.style.opacity = 1;
 };
 
-const songAudio = document.getElementById('gameSong');
-const audioImg = document.getElementById('audio-img');
-const easyBtn = document.getElementById('easy-mode');
-const mediumBtn = document.getElementById('medium-mode');
-const hardBtn = document.getElementById('hard-mode');
-const audioBtn = document.getElementById('play');
-const goBack = document.getElementById('back-btn');
-const backBtnGameMode = document.querySelector('.go-back');
-
-easyBtn.addEventListener('click', () => chooseMode(1));
-mediumBtn.addEventListener('click', () => chooseMode(2));
-hardBtn.addEventListener('click', () => chooseMode(3));
-audioBtn.addEventListener('click', () => {
+const handleSong = (audioImg) => {
   if (songAudio.paused) {
     songAudio.muted = false;
     audioImg.setAttribute('src', './assets/volume-down-fill.svg');
@@ -194,9 +197,25 @@ audioBtn.addEventListener('click', () => {
     songAudio.pause();
     audioImg.setAttribute('src', './assets/volume-mute-fill.svg');
   }
-});
+};
+
+const songAudio = document.querySelector('.gameSong');
+const audioImg = document.getElementById('audio-img');
+const easyBtn = document.getElementById('easy-mode');
+const mediumBtn = document.getElementById('medium-mode');
+const hardBtn = document.getElementById('hard-mode');
+const audioBtn = document.getElementById('play');
+
+const goBack = document.getElementById('back-btn');
+const backBtnGameMode = document.querySelector('.go-back');
+
+easyBtn.addEventListener('click', () => chooseMode(1));
+mediumBtn.addEventListener('click', () => chooseMode(2));
+hardBtn.addEventListener('click', () => chooseMode(3));
+audioBtn.addEventListener('click', () => handleSong(audioImg));
 
 goBack.addEventListener('click', clearGame);
 backBtnGameMode.addEventListener('click', clearGame);
 songAudio.volume = 0.1;
 localStorage.removeItem('images');
+audioBtn.style.top = '20px';
