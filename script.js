@@ -110,6 +110,10 @@ const styleGameMode = () => {
   const cardsWrapper = document.getElementById('wrapper');
   const audioBtnGameMode = document.querySelector('.play');
   const audioImg = document.getElementById('audio-img2');
+  const songAudioGameMode = document.getElementById('gameSong2');
+  const songAudio1 = document.getElementById('gameSong');
+  songAudio1.muted = true;
+  songAudioGameMode.volume = 0.1;
   const audioBtn = document.querySelector('.play');
 
   welcomeDiv.style.display = 'none';
@@ -117,7 +121,9 @@ const styleGameMode = () => {
   gameWrapper.style.display.opacity = 1;
   cardsWrapper.innerHTML = '';
 
-  audioBtnGameMode.addEventListener('click', () => handleSong(audioImg));
+  audioBtnGameMode.addEventListener('click', () =>
+    handleSong(audioImg, songAudioGameMode)
+  );
 
   audioBtn.style.top = '65px';
   audioBtn.style.right = '45px';
@@ -180,15 +186,23 @@ const clearGame = () => {
   localStorage.removeItem('images');
   const welcomeDiv = document.getElementById('welcome-div');
   const gameWrapper = document.getElementById('game-wrapper');
+  const songAudio1 = document.getElementById('gameSong');
+  const songAudio2 = document.getElementById('gameSong2');
+  const audioImg2 = document.getElementById('audio-img2');
+  const cardsWrapper = document.getElementById('wrapper');
+
+  songAudio1.muted = false;
+  songAudio2.muted = true;
+  audioImg2.setAttribute('src', './assets/volume-mute-fill.svg');
   welcomeDiv.style.display = 'flex';
   gameWrapper.style.display = 'none';
-  const cardsWrapper = document.getElementById('wrapper');
+
   cardsWrapper.innerHTML = '';
   document.getElementById('win-dialog').close();
   document.body.style.opacity = 1;
 };
 
-const handleSong = (audioImg) => {
+const handleSong = (audioImg, songAudio) => {
   if (songAudio.paused) {
     songAudio.muted = false;
     audioImg.setAttribute('src', './assets/volume-down-fill.svg');
@@ -199,7 +213,7 @@ const handleSong = (audioImg) => {
   }
 };
 
-const songAudio = document.querySelector('.gameSong');
+const songAudio = document.getElementById('gameSong');
 const audioImg = document.getElementById('audio-img');
 const easyBtn = document.getElementById('easy-mode');
 const mediumBtn = document.getElementById('medium-mode');
@@ -212,7 +226,7 @@ const backBtnGameMode = document.querySelector('.go-back');
 easyBtn.addEventListener('click', () => chooseMode(1));
 mediumBtn.addEventListener('click', () => chooseMode(2));
 hardBtn.addEventListener('click', () => chooseMode(3));
-audioBtn.addEventListener('click', () => handleSong(audioImg));
+audioBtn.addEventListener('click', () => handleSong(audioImg, songAudio));
 
 goBack.addEventListener('click', clearGame);
 backBtnGameMode.addEventListener('click', clearGame);
