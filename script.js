@@ -125,7 +125,13 @@ const chooseMode = async (mode) => {
   let randomIndex = null;
   if (mode === 1) {
     cardsWrapper.style.gridTemplateColumns = 'repeat(3,1fr)';
+    cardsWrapper.style.width = '60%';
+  } else if (mode === 2) {
+    cardsWrapper.style.gridTemplateColumns = 'repeat(4,1fr)';
+    cardsWrapper.style.width = '70%';
   } else if (mode === 3) {
+    cardsWrapper.style.gridTemplateColumns = 'repeat(6,1fr)';
+    cardsWrapper.style.width = '100%';
   }
 
   images.forEach((image, index) => {
@@ -136,7 +142,7 @@ const chooseMode = async (mode) => {
     imgHolder.classList.add(`number-img-${index}`);
     div.classList.add(`${index}`);
     div.classList.add('div-holder');
-    div.style.backgroundColor = 'black';
+    div.style.backgroundColor = '#0e1a40';
     imgHolder.style.opacity = 0;
     div.appendChild(imgHolder);
     cardsWrapper.appendChild(div);
@@ -164,7 +170,7 @@ const clearGame = () => {
   const cardsWrapper = document.getElementById('wrapper');
   cardsWrapper.innerHTML = '';
   document.getElementById('win-dialog').close();
-  document.body.opacity = 1;
+  document.body.style.opacity = 1;
 };
 
 const songAudio = document.getElementById('gameSong');
@@ -174,6 +180,7 @@ const mediumBtn = document.getElementById('medium-mode');
 const hardBtn = document.getElementById('hard-mode');
 const audioBtn = document.getElementById('play');
 const goBack = document.getElementById('back-btn');
+const backBtnGameMode = document.querySelector('.go-back');
 
 easyBtn.addEventListener('click', () => chooseMode(1));
 mediumBtn.addEventListener('click', () => chooseMode(2));
@@ -190,4 +197,6 @@ audioBtn.addEventListener('click', () => {
 });
 
 goBack.addEventListener('click', clearGame);
+backBtnGameMode.addEventListener('click', clearGame);
 songAudio.volume = 0.1;
+localStorage.removeItem('images');
